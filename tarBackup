@@ -1,0 +1,17 @@
+#! /bin/sh
+# A shell script to backup the entire documents folder as a tar
+# Don't forget to replace the sharename with the name of a backup server
+
+set dummy `date`
+month=$4
+year=$5
+filename="BACKUP.$month.$year"
+if [ -f /Volumes/sharename/$filename.tar ]
+then
+   rm /Volumes/sharename/$filename.tar
+   tar -cvf /Volumes/sharename/$filename.tar ~/Documents
+   echo "Replaced existing backup of the ~/Documents folder!"
+else
+   tar -cvf /Volumes/sharename/$filename.tar ~/Documents
+   echo "Created new backup of the ~/Documents folder!"
+fi

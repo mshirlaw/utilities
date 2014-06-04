@@ -1,0 +1,17 @@
+#! /bin/sh
+#  DBFix deletes a corrupted Filemaker Pro 6 preferences folder
+#  to prevent a crash of a Filemaker 6 Database upon launch 
+##################################################################  
+
+
+if [ -d ~/Library/Preferences/Test ]
+   then
+       rm -r ~/Library/Preferences/Test
+       echo "Successfully deleted the Filmaker 6 Preferences!"
+       echo "Please close this window and re-open the Database."
+   else
+       echo "Error: No such folder! " 
+       exit 1
+    fi
+exit 0
+
