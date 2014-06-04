@@ -4,6 +4,10 @@ A simple shell script to allow you to backup a folder / directory. The script wi
 #emailStatus
 A simple script to email the status of your server. This script is best used with cron to send regular updates as to the status of your server. It includes information on uptime and the number of users currently logged in. Replace USER and SERVER with the appropriate email address. 
 
+##CreateLocalUser
+A simple script to create new localusers on MacOSX machines.
+Usage: sudo ./CreateLocalUser username password real
+
 ##Author
 mshirlaw
 Date: 26/9/12
