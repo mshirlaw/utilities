@@ -1,0 +1,34 @@
+#!/bin/sh
+#A script to email the status of a server
+#This script also registers the server's IP address with a DynDNS service
+#such as freedns.afraid.org and monitors the status of an attached UPS
+
+date=`date`
+address="USER@DOMAIN"
+subject="Server Status for $date"
+sudo uptime > uptest
+if [ -f uptest  ] 
+then
+    rm uptest
+    echo "Your server is working correctly!" >> message
+    echo "" >> message
+    echo "----------Current uptime statistics----------" >> message
+    echo `uptime` >> message
+    echo "" >> message
+    echo "----------Current users logged in----------" >> message
+    echo `who` >> message
+    echo "" >> message
+    echo "----------Status of UPS----------" >> message
+    echo `upsc ups_name@localhost | head -6` >> message
+    echo "" >> message
+    echo "----------Updating DynDNS -------" >> message
+    echo `curl -sS ADDRESS_HERE` >> message
+    echo "" >> message
+    echo "-------Failed log in attempts-------" >> message
+    echo `cat /var/log/faillog | tail -10` >> message
+    mail -s "$subject" "$address" < message
+    rm message
+else
+    echo "Error: Uptime command failed!"
+    rm uptest
+fi

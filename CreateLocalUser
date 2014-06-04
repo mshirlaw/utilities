@@ -1,0 +1,23 @@
+#! /bin/sh
+# A script to create new localusers on MacOSX machines
+# 
+# This script must be run as sudo 
+# Usage: sudo ./CreateLocalUser username password real
+# Parameters: 
+# username [the username of the account]
+# password [the account password to use] 
+# real [the real name of the user]
+# Make sure that UniqueID is not the same as any other user
+#
+##############################################################################
+
+username=$1
+pass=$2
+realName=$3
+dscl . create /Users/$username
+dscl . create /Users/$username UserShell /bin/bash
+dscl . create /Users/$username RealName $realName
+dscl . create /Users/$username UniqueID 9098
+dscl . create /Users/$username PrimaryGroupID 1000
+dscl . create /Users/$username NFSHomeDirectory /Local/Users/$username
+dscl . passwd /Users/$username $pass

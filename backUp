@@ -1,0 +1,25 @@
+#!/bin/sh
+#A shell script to backup any folder on your
+#computer. SRC should contain the path to the directory 
+#that you want to back up. DEST should contain the
+#path to your backup drive or folder
+#
+#Author: mshirlaw
+#Date: 26/9/12
+#
+#Dependencies: rsync (sudo apt-get install rsync)
+#
+#################################################
+SRC="/Users/USERNAME/Documents/Work"
+DEST="/Volumes/shared/backups/"
+set DUMMY `date`
+YEAR=$5
+FILENAME="UNI.$YEAR"
+if [ -d $DEST/$FILENAME ]
+then
+   rsync -auv --delete $SRC $DEST/$FILENAME
+   echo "Updated existing backup of $SRC folder!"
+else
+   rsync -auv $SRC $DEST/$FILENAME
+   echo "Created new backup of $SRC folder!"
+fi
